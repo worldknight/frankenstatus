@@ -1,0 +1,184 @@
+***THE COMMUNE OF DR. FRANKENSTATUS***
+
+Dr. Victor Frankenstatus, polymath without peer, has found the answer to achieving equality.People enter a utipoian commune with a range of characteristics that give them more or less power in their dealings with each other.
+
+Only by equalizing these characteristics, Frankenstatus believes, can true, lasting equality be achieved. The solution is a marvelous new machine Frankenstatus invented, the "psychexchanger." It is quite a large device, a room full of pipes, motors, lenses, and electrical circuits.At the business end are two seats.
+
+Take two people, Jack and Jill for instance. Sit them down and strap them in. Place the psychexchanger helmets over their heads.
+
+Push the START button.... and ZAP! In an instant, Jack and Jill switch minds!
+
+The Doctor knows some people have quick minds (bright people). The Doctor knows that some people are considered especially attractive (beautiful people). The Doctor is going to switch enough minds until the bright people are all less attractive....
+
+and the beautiful people are all dim. Thus, power differentials are eliminated.
+
+This is bologna, you know, but that doesn't stop Dr. Frankenstatus, and you're paid to be his RA.
+
+Let's begin.
+
+Press any key to continue...
+
+
+
+
+
+How many people are to be invited by Dr. Frankenstatus?  46
+************************************************************
+46 people have arrived:
+Exceptional Marsupial is dim and ugly
+************************************************************
+Allied Snail is dim and ugly
+************************************************************
+Experienced Slug is dim and ugly
+************************************************************
+Compatible Salamander is dim and beautiful
+************************************************************
+Weekly Pheasant is bright and beautiful
+************************************************************
+Honest Firefly is bright and ugly
+************************************************************
+Internal Swordtail is dim and ugly
+************************************************************
+Combative Tuna is bright and ugly
+************************************************************
+Technical Ermine is bright and ugly
+************************************************************
+Disturbed Crab is bright and ugly
+************************************************************
+Desperate Marlin is bright and beautiful
+************************************************************
+Broad Quokka is dim and ugly
+************************************************************
+Doubtful Sparrow is dim and beautiful
+************************************************************
+Radical Condor is bright and beautiful
+************************************************************
+Uniform Pike is dim and ugly
+************************************************************
+Visible Sheep is bright and ugly
+************************************************************
+Revolutionary Vole is bright and ugly
+************************************************************
+Tired Primate is dim and beautiful
+************************************************************
+Constant Mongoose is bright and ugly
+************************************************************
+Crazy Silverfish is dim and beautiful
+************************************************************
+Key Tern is dim and beautiful
+************************************************************
+Miniature Parrotfish is bright and beautiful
+************************************************************
+Legitimate Impala is bright and ugly
+************************************************************
+Dear Capybara is dim and ugly
+************************************************************
+Zoophagous Emu is bright and ugly
+************************************************************
+Disappointed Reptile is dim and ugly
+************************************************************
+Used Shark is bright and beautiful
+************************************************************
+Disgusted Duck is bright and beautiful
+************************************************************
+Elated Aardwolf is bright and beautiful
+************************************************************
+Grubby Cow is bright and beautiful
+************************************************************
+Disabled Jay is dim and ugly
+************************************************************
+Secondary Hippopotamus is bright and ugly
+************************************************************
+Competitive Wasp is bright and beautiful
+************************************************************
+Consistent Dog is bright and ugly
+************************************************************
+Useful Parrotfish is bright and ugly
+************************************************************
+Marginal Orangutan is dim and ugly
+************************************************************
+Horrible Pigeon is dim and ugly
+************************************************************
+Motionless Sailfish is dim and ugly
+************************************************************
+Liquid Constrictor is dim and beautiful
+************************************************************
+Orthodox Bass is bright and beautiful
+************************************************************
+Empirical Crayfish is dim and beautiful
+************************************************************
+Apparent Shrew is dim and beautiful
+************************************************************
+Still Lemur is bright and ugly
+************************************************************
+Wispy Panda is dim and ugly
+************************************************************
+Aggressive Lemur is bright and ugly
+************************************************************
+Generous Fox is bright and ugly
+************************************************************
+The current data is saved in a chart labeled start.html. A spreadsheet labeled start.csv is also saved.
+
+
+
+
+
+
+------------------------------------------------------------
+The current correlation between mind and body is 0.18408779231116768. This means that mind and body are roughly 18% correlated
+Dr. Frankenstatus is going to switch the member's bodies!
+A correlation of 1.0 would mean that the most 'beautiful' people are also the 'smartest'
+A correlation of -1.0 would mean that the most 'beautiful' people are also the 'dimmest'.
+
+What is the correlation  you want to aim for?
+HINT: Try for something lower than the current correlation. -0.5
+How many times do you want to run this? 20000
+ Swap 6722 - New Coefficient: -0.5083300418811578 Percentage: -51%:  34%|█████████████████████▌                                          | 6721/20000 [08:17<16:07, 13.72it/s]Desired Result Achieved after 6722 tries!
+ Swap 6722 - New Coefficient: -0.5083300418811578 Percentage: -51%:  34%|█████████████████████▌                                          | 6722/20000 [08:17<16:23, 13.50it/s]
+    ID                    Name  original_mind_stat  body_stat       current_body_name
+0   33        Competitive Wasp                  54         24       Constant Mongoose
+1   32  Secondary Hippopotamus                  92          0            Uniform Pike
+2   42          Apparent Shrew                  30         27          Honest Firefly
+3    7      Internal Swordtail                  19         85              Grubby Cow
+4   19       Constant Mongoose                 100         45        Technical Ermine
+5   15            Uniform Pike                   2         69          Radical Condor
+6   25          Zoophagous Emu                  94         37          Zoophagous Emu
+7   28          Disgusted Duck                  97         12           Visible Sheep
+8    9        Technical Ermine                  54         46   Exceptional Marsupial
+9   46            Generous Fox                  58          9          Combative Tuna
+10   2            Allied Snail                  41         29       Useful Parrotfish
+11  14          Radical Condor                  72         60        Crazy Silverfish
+12  36      Marginal Orangutan                  49         27          Disturbed Crab
+13  17      Revolutionary Vole                  51         41      Internal Swordtail
+14  39      Liquid Constrictor                  17         86         Elated Aardwolf
+15   8          Combative Tuna                  61         12            Generous Fox
+16   3        Experienced Slug                  21         77    Miniature Parrotfish
+17  31            Disabled Jay                  46         32          Consistent Dog
+18  26    Disappointed Reptile                   3         21            Allied Snail
+19  23       Legitimate Impala                  55         45            Disabled Jay
+20  16           Visible Sheep                  56         89          Apparent Shrew
+21  44             Wispy Panda                  14          3       Legitimate Impala
+22  45        Aggressive Lemur                  79         38             Wispy Panda
+23  24           Dear Capybara                  34         53   Compatible Salamander
+24  35       Useful Parrotfish                  61         10  Secondary Hippopotamus
+25  12            Broad Quokka                  37         97                Key Tern
+26  41      Empirical Crayfish                  32         54          Disgusted Duck
+27  34          Consistent Dog                  93         22        Experienced Slug
+28   6          Honest Firefly                  68         48             Still Lemur
+29  10          Disturbed Crab                  72         26            Broad Quokka
+30  18           Tired Primate                  45         74        Doubtful Sparrow
+31  38     Motionless Sailfish                   7         82        Competitive Wasp
+32  22    Miniature Parrotfish                  58         53      Liquid Constrictor
+33  29         Elated Aardwolf                  91         17           Dear Capybara
+34  11        Desperate Marlin                  93         75              Used Shark
+35  37         Horrible Pigeon                  30         80      Empirical Crayfish
+36  43             Still Lemur                 100          7    Disappointed Reptile
+37   1   Exceptional Marsupial                  13         81           Orthodox Bass
+38   4   Compatible Salamander                  11         66        Desperate Marlin
+39  30              Grubby Cow                  59         42        Aggressive Lemur
+40   5         Weekly Pheasant                  77         10      Revolutionary Vole
+41  27              Used Shark                  96          2      Marginal Orangutan
+42  21                Key Tern                  48         69         Weekly Pheasant
+43  13        Doubtful Sparrow                  40          5     Motionless Sailfish
+44  20        Crazy Silverfish                   7         97           Tired Primate
+45  40           Orthodox Bass                  93         30         Horrible Pigeon
