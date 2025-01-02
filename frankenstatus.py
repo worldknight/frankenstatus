@@ -277,12 +277,9 @@ def swapping_time(people, tries, threshold):
 				
 			pbar.update()
 
-	
-
-
 swapped = swapping_time(people, tries, threshold)
 if swapped is None:
-	print('No swap can improve this set. Dr. Frankenstatus has failed!')
+	print(f'{tries} attempts were insufficient to  improve this set. Dr. Frankenstatus has failed!')
 	sys.exit()
 #Basic Scatterplot and Quadranting
 print(swapped)
