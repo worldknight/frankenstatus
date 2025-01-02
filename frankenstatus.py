@@ -3,6 +3,7 @@
 # Sociology Laboratory: Computer Simulations for Learning Sociology (1987)
 
 # Import Packages
+import sys #For exiting
 import numpy as np ## For calculating correlations
 import pandas as pd #For data storage
 import plotly.express as px ##For plots
@@ -10,6 +11,7 @@ import random ## For calculating chances
 from unique_names_generator import get_random_name ## For name generation
 from unique_names_generator.data import ADJECTIVES, ANIMALS  ## To make name generation more fun.
 import copy ## For swapping 
+import itertools as it #For efficient swapping and permutation display
 import tqdm
 from tqdm import trange  ##For progress display
 
@@ -26,7 +28,7 @@ with open('synopsis.txt') as synopsis:
 			break
 		print(line)
 
-input('Press any key to continue... ')
+input('Press Enter or Return to continue... ')
 print('\n' *4)
 
 # Creating Individual Units
@@ -216,9 +218,13 @@ print('A correlation of 1.0 would mean that the most \'beautiful\' people are al
 threshold = float(input('What is the correlation  you want to aim for? \nHINT: Try for something lower than the current correlation. '))
 tries = int(input('How many times do you want to run this? '))
 exchange_frame= [ ]
+def swapping_time(people, tries, threshold,):
+	''' Dr. Frankenstatus has unleashed the psychexchanger. God help us. In actuality, all this does is swap the scores between units.'''
 
-def swapping_time(people, tries, threshold):
-	''' '''
+	exchange_frame_setup = people[:]
+	#Setup Swap Frame (SF):
+	swapped = pd.DataFrame(columns = ['ID', 'Name', 'original_mind_stat', 'body_stat', 'current_body_name'])
+
 	class Swap_Member:
 		'''Dr. Frankenstatus has swapped two members' minds.'''
 		def __init__(self, ident, name, original_mind_stat, body_stat, current_body_name):
@@ -228,53 +234,59 @@ def swapping_time(people, tries, threshold):
 			self.body_stat = body_stat
 			self.current_body_name= current_body_name
 
-#Setup Swap Frame
-	for person in people:
+	for person in exchange_frame_setup:
 		person.current_body_name = person.name
 		new_class_person = Swap_Member(person.ident, person.name, person.original_mind_stat, person.body_stat, person.current_body_name)
-		exchange_frame.append(person)
+		exchange_frame.append(new_class_person)
+		swapped.loc[len(swapped)] = [person.ident, person.name, person.original_mind_stat, person.body_stat, person.current_body_name]
 
-	#Swapping Two Random People
-	with tqdm.tqdm(total = tries) as pbar:
-		for i in range(tries):
-			swapped = pd.DataFrame(columns = ['ID', 'Name', 'original_mind_stat', 'body_stat', 'current_body_name'])
-			person_a, person_b = random.sample(exchange_frame, 2)
-			exchange_frame.remove(person_a)
-			exchange_frame.remove(person_b)
-			swapped_person_a = Swap_Member(person_a.ident, person_a.name, person_a.original_mind_stat, person_b.body_stat, person_b.current_body_name)
-			swapped_person_b = Swap_Member(person_b.ident, person_b.name, person_b.original_mind_stat, person_a.body_stat, person_a.current_body_name)
-			exchange_frame.append(swapped_person_a)
-			exchange_frame.append(swapped_person_b)
-			for person in exchange_frame:
-				swapped.loc[len(swapped)] = [person.ident, person.name, person.original_mind_stat, person.body_stat, person.current_body_name]
-
-			new_matrix = np.corrcoef(swapped['original_mind_stat'], swapped['body_stat'])
-			new_coef = str(new_matrix[0,1])
-			new_coef_percentage = f"{float(new_coef):.0%}"
-			pbar.set_description(f' Swap {i+1} - New Coefficient: {new_coef} Percentage: {new_coef_percentage}')
-			pbar.update()
-			if threshold < 0:
-				if float(new_coef) <=  threshold:
-					print(f'Desired Result Achieved after {i + 1} tries!')
-					return swapped
-					break
-					pbar.close()
-			else:
-				if float(new_coef) >= threshold:
-					print(f'Desired Result Achieved after {i + 1} tries!')
-					return swapped
-					break
-					pbar.close()
-		print(f' Failed to meet or exceed threshold after {i + 1} iterations. Using last iteration...')	
-		return swapped
-		pbar.close()
+	swaps = list(it.combinations(swapped.index, 2))
+	improve = False
+	current_coef = float(coef)
+	best_coef = current_coef
 	
+	#Search for best possible correlation
+	def swap_eval(data, idx1, idx2):
+		''' Checks for correlation improvement '''
+		temp_swap = data.copy()
+		temp_swap.loc[[idx1, idx2], ['body_stat', 'current_body_name']]= temp_swap.loc[[idx2, idx1], ['body_stat', 'current_body_name']].values
+		test_corr = np.corrcoef(temp_swap['body_stat'], temp_swap['original_mind_stat'])
+		pbar_2.update()
+		return test_corr
+
+	with tqdm.tqdm(total = tries) as pbar_2:
+		count = 0
+		for i in range(tries):
+			for idx1, idx2 in swaps:
+				if count < tries:
+					count += 1
+					test_corr = swap_eval(swapped, idx1, idx2)
+					swap_1 = swapped.iloc[idx1]['Name']
+					swap_2 = swapped.iloc[idx2]['Name']
+					pbar_2.set_description(f' Swap {count}: {swap_1} and {swap_2},  New Coeff: {test_corr[0,1]}')
+					if (threshold < 0 and test_corr[0,1] < best_coef) or (threshold >0 and test_corr[0,1] >= best_coef):
+						swapped.loc[[idx1, idx2], ['body_stat', 'current_body_name']] = swapped.loc[[idx2, idx1], ['body_stat',  'current_body_name']].values
+						best_coef = test_corr[0,1]
+						improve = True
+					else:
+						pass
+						if (threshold <0 and best_coef <= threshold) or (threshold >0 and best_coef >= threshold):
+								print(f"Target achieved. New correlation: {best_coef}")
+								pbar_2.close()
+								return swapped
+								break
+						else:
+							pass
+				else:
+					break
 
 
 swapped = swapping_time(people, tries, threshold)
-print(swapped)
-#new_plot
+if swapped is None:
+	print(f'{tries} tries insufficient to reach target correlation. Dr. Frankenstatus has failed!')
+	sys.exit()
 #Basic Scatterplot and Quadranting
+#print(swapped)
 new_matrix = np.corrcoef(swapped['original_mind_stat'], swapped['body_stat'])
 new_coef = str(new_matrix[0,1])
 new_coef_percentage = f"{float(new_coef):.0%}"
