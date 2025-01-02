@@ -260,7 +260,6 @@ def swapping_time(people, tries, threshold,):
 			for idx1, idx2 in swaps:
 				if count < tries:
 					count += 1
-					print(f'Count: {count} of {tries}')
 					test_corr = swap_eval(swapped, idx1, idx2)
 					swap_1 = swapped.iloc[idx1]['Name']
 					swap_2 = swapped.iloc[idx2]['Name']
@@ -287,7 +286,7 @@ if swapped is None:
 	print(f'{tries} tries insufficient to reach target correlation. Dr. Frankenstatus has failed!')
 	sys.exit()
 #Basic Scatterplot and Quadranting
-print(swapped)
+#print(swapped)
 new_matrix = np.corrcoef(swapped['original_mind_stat'], swapped['body_stat'])
 new_coef = str(new_matrix[0,1])
 new_coef_percentage = f"{float(new_coef):.0%}"
