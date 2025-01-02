@@ -11,6 +11,7 @@ import random ## For calculating chances
 from unique_names_generator import get_random_name ## For name generation
 from unique_names_generator.data import ADJECTIVES, ANIMALS  ## To make name generation more fun.
 import copy ## For swapping 
+import itertools as it #For efficient swapping and permutation display
 import tqdm
 from tqdm import trange  ##For progress display
 
@@ -217,12 +218,10 @@ print('A correlation of 1.0 would mean that the most \'beautiful\' people are al
 threshold = float(input('What is the correlation  you want to aim for? \nHINT: Try for something lower than the current correlation. '))
 tries = int(input('How many times do you want to run this? '))
 exchange_frame= [ ]
-
-def swapping_time(people, tries, threshold):
+def swapping_time(people, tries, threshold,):
 	''' Dr. Frankenstatus has unleashed the psychexchanger. God help us. In actuality, all this does is swap the scores between units.'''
 
 	exchange_frame_setup = people[:]
-
 	#Setup Swap Frame (SF):
 	swapped = pd.DataFrame(columns = ['ID', 'Name', 'original_mind_stat', 'body_stat', 'current_body_name'])
 
@@ -241,45 +240,51 @@ def swapping_time(people, tries, threshold):
 		exchange_frame.append(new_class_person)
 		swapped.loc[len(swapped)] = [person.ident, person.name, person.original_mind_stat, person.body_stat, person.current_body_name]
 
-	#Search for best possible correlation
-	with tqdm.tqdm(total = tries) as pbar:
-		for i in range(tries):
-			best_swap = None
-			current_coef = float(coef)
-			best_coef = current_coef
-
-			for j in range(len(swapped)):
-				for k in range(j+1, len(swapped)):
-					temp_swap = swapped.copy()
-					temp_swap.loc[j, 'body_stat'], temp_swap.loc[k, 'body_stat'] = temp_swap.loc[k, 'body_stat'], temp_swap.loc[j, 'body_stat']
-					temp_swap.loc[j, 'current_body_name'], temp_swap.loc[k, 'current_body_name'] = temp_swap.loc[k, 'current_body_name'], temp_swap.loc[j, 'current_body_name']
-					new_coef = np.corrcoef(temp_swap['original_mind_stat'], temp_swap['body_stat'])[0,1]
-					#print(f" Current: {temp_swap.loc[j, 'Name']} and {temp_swap.loc[k, 'current_body_name']} * Current Correlation: {new_coef}")
+	swaps = list(it.combinations(swapped.index, 2))
+	improve = False
+	current_coef = float(coef)
+	best_coef = current_coef
 	
-				if threshold < 0: #For positive correlation
-					if abs(threshold - new_coef) < abs(threshold - best_coef):
-						best_swap =(j, k)
-						best_coef = new_coef
-				else: #For negative correlation
-					if abs(threshold - new_coef) > abs(threshold - best_coef):
-						best_swap =(j, k)
-						best_coef = new_coef
-			if best_swap:
-				swapped.loc[best_swap[0], 'body_stat'], swapped.loc[best_swap[1], 'body_stat'] = swapped.loc[best_swap[1], 'body_stat'], swapped.loc[best_swap[0], 'body_stat']
-				swapped.loc[best_swap[0], 'current_body_name'], swapped.loc[best_swap[1], 'current_body_name'] = swapped.loc[best_swap[1], 'current_body_name'], swapped.loc[best_swap[0], 'current_body_name']
-				current_coef = best_coef
-				pbar.set_description(f"Best:  {swapped.loc[best_swap[0], 'Name']} and {swapped.loc[best_swap[1], 'Name']} * Current Correlation: {current_coef}")
-				if abs(current_coef - threshold) <= 0.01: #Arbitrary value
-					pbar.set_description(f' Swap {i+1}: Target achieved!')
-					print(f"Swap {i} successful.")
-					pbar.close()
-					return swapped
-				
-			pbar.update()
+	#Search for best possible correlation
+	def swap_eval(data, idx1, idx2):
+		''' Checks for correlation improvement '''
+		temp_swap = data.copy()
+		temp_swap.loc[[idx1, idx2], ['body_stat', 'current_body_name']]= temp_swap.loc[[idx2, idx1], ['body_stat', 'current_body_name']].values
+		test_corr = np.corrcoef(temp_swap['body_stat'], temp_swap['original_mind_stat'])
+		pbar_2.update()
+		return test_corr
+
+	with tqdm.tqdm(total = tries) as pbar_2:
+		count = 0
+		for i in range(tries):
+			for idx1, idx2 in swaps:
+				if count < tries:
+					count += 1
+					print(f'Count: {count} of {tries}')
+					test_corr = swap_eval(swapped, idx1, idx2)
+					swap_1 = swapped.iloc[idx1]['Name']
+					swap_2 = swapped.iloc[idx2]['Name']
+					pbar_2.set_description(f' Swap {count}: {swap_1} and {swap_2},  New Coeff: {test_corr[0,1]}')
+					if (threshold < 0 and test_corr[0,1] < best_coef) or (threshold >0 and test_corr[0,1] >= best_coef):
+						swapped.loc[[idx1, idx2], ['body_stat', 'current_body_name']] = swapped.loc[[idx2, idx1], ['body_stat',  'current_body_name']].values
+						best_coef = test_corr[0,1]
+						improve = True
+					else:
+						pass
+						if (threshold <0 and best_coef <= threshold) or (threshold >0 and best_coef >= threshold):
+								print(f"Target achieved. New correlation: {best_coef}")
+								pbar_2.close()
+								return swapped
+								break
+						else:
+							pass
+				else:
+					break
+
 
 swapped = swapping_time(people, tries, threshold)
 if swapped is None:
-	print(f'{tries} attempts were insufficient to  improve this set. Dr. Frankenstatus has failed!')
+	print(f'{tries} tries insufficient to reach target correlation. Dr. Frankenstatus has failed!')
 	sys.exit()
 #Basic Scatterplot and Quadranting
 print(swapped)
