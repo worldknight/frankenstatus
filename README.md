@@ -1,5 +1,6 @@
 # frankenstatus
- Implementation of Bainbridge's STATUS simulation written for Python
+ Implementation of Bainbridge's STATUS simulation written for Python.
+ *Original Source*: Bainbridge, William Sims. *Sociology Laboratory: Computer Simulations for Learning Sociology*. IBM PC/Manual and 256K Diskettee. Belmont, CA: Wadsworth, 1987. 
 
 # To Run:
 python frankenstatus.py
